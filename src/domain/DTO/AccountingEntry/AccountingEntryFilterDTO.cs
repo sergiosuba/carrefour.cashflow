@@ -2,13 +2,12 @@ using System;
 
 namespace cashflow.domain.DTO
 {
-    public class AccountingEntryDTO
+    public class AccountingEntryFilterDTO
     {
-        public string Id { get; set; }
         public string ChartAccountId { get; set; }
         public decimal Value { get; set; }
         public string FlowId { get; set; }
-        public string Description { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime StarDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

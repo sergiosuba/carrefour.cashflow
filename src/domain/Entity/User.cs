@@ -4,11 +4,11 @@ namespace cashflow.domain.Entity
 {
     public class User
     {
-        string id { get; set; }
-        string name { get; set; }
-        string email { get; set; }
-        string password { get; set; }
-        string description { get; set; }
-        DateTime creationDate { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public string description { get; set; }
+        public DateTime creationDate { get; set; }
     }
 }

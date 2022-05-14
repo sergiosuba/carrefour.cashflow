@@ -35,11 +35,11 @@ namespace cashflow.application
                     {
                         Title = "Cashflow 1.0",
                         Version = "v1",
-                        Description = "Application service leancodex 1.0",
+                        Description = "Application service cashflow 1.0",
                         Contact = new OpenApiContact
                         {
                             Name = "Cashflow",
-                            Url = new Uri("https://dev.azure.com/plenuscontrol/leancodex")
+                            Url = new Uri("https://dev.azure.com/plenuscontrol/cashflow")
                         }
                     });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -63,6 +63,8 @@ namespace cashflow.application
                     }
                 });
             });
+
+
 
             //token
             var SecretKey = Encoding.ASCII.GetBytes(Settings.Secret);
@@ -100,7 +102,7 @@ namespace cashflow.application
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Leancodex v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cashflow v1");
                 c.RoutePrefix = string.Empty;
             });
             app.UseEndpoints(endpoints =>

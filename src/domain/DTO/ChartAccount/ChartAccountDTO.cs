@@ -4,9 +4,9 @@ namespace cashflow.domain.DTO
 {
     public class ChartAccountDTO
     {
-        string Id { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
-        DateTime CreationDate { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }

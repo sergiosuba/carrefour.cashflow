@@ -4,11 +4,11 @@ namespace cashflow.domain.Entity
 {
     public class AccountingEntry
     {
-        string id { get; set; }
-        string chartAccountId { get; set; }
-        decimal value { get; set; }
-        string flowId { get; set; }
-        string description { get; set; }
-        DateTime creationDate { get; set; }
+        public string id { get; set; }
+        public string chartAccountId { get; set; }
+        public decimal value { get; set; }
+        public string flowId { get; set; }
+        public string description { get; set; }
+        public DateTime creationDate { get; set; }
     }
 }

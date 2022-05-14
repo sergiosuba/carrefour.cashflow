@@ -17,7 +17,7 @@ namespace cashflow.application
                 {
                     webBuilder.UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseUrls("http://*:3000")
+                    .UseUrls("http://*:3001")
                     .UseStartup<Startup>();
                 });
     }
