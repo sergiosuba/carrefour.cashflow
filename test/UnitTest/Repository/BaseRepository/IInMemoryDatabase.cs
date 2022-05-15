@@ -6,6 +6,7 @@ namespace Cashflow.Test.UnitTest.Repository
     public interface IInMemoryDatabase
     {
         IDbConnection OpenConnection();
-        void Insert<T>(string tableName, IEnumerable<T> items);
+        void Insert<T>(IEnumerable<T> items);
+        void CreateTable<T>();
     }
 }

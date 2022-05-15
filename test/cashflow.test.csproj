@@ -7,7 +7,6 @@
     <PackageReference Include="Dapper.Extensions.SQLite" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="ServiceStack.OrmLite.Sqlite" Version="5.11.0" />
-    <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="XUnit" Version="2.4.1" />

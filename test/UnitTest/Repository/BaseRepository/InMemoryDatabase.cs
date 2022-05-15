@@ -10,29 +10,25 @@ namespace Cashflow.Test.UnitTest.Repository
 {
     public class InMemoryDatabase : IInMemoryDatabase
     {
-        private readonly OrmLiteConnectionFactory dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteOrmLiteDialectProvider.Instance);
+        private readonly OrmLiteConnectionFactory _dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteOrmLiteDialectProvider.Instance);
 
-        public IDbConnection OpenConnection() => this.dbFactory.OpenDbConnection();
+        public IDbConnection OpenConnection() => this._dbFactory.OpenDbConnection();
 
-        public void Insert<T>(IEnumerable<T> items)
+        public void CreateTable<T>()
         {
             using (var conn = this.OpenConnection())
             {
                 conn.CreateTableIfNotExists<T>();
-
-                foreach (var item in items)
-                {
-                    conn.Insert(item);
-                }
             }
         }
 
-        public void Insert<T>(string tableName, IEnumerable<T> items)
+        public void Insert<T>(IEnumerable<T> items)
         {
             var con = OpenConnection();
 
-            con.CreateTableIfNotExists<T>(tableName);
-            con.InsertAll(tableName, items);
+            con.CreateTableIfNotExists<T>();
+
+            con.InsertAll(typeof(T).Name, items);
         }
     }
 
@@ -47,7 +43,7 @@ namespace Cashflow.Test.UnitTest.Repository
     }
     internal static class DbConnectionExtensions
     {
-        public static void CreateTableIfNotExists<T>(this IDbConnection connection, string tableName)
+        public static void CreateTableIfNotExists<T>(this IDbConnection connection)
         {
             var columns = GetColumnsForType<T>();
             var fields = string.Join(", ", columns.Select(x => $"[{x.Item1}] TEXT"));
@@ -56,7 +52,7 @@ namespace Cashflow.Test.UnitTest.Repository
             key = key + " PRIMARY KEY";
             fields = fields.Replace(fields1[0], key);
 
-            var sql = $"CREATE TABLE IF NOT EXISTS [{tableName}] ({fields}) WITHOUT ROWID";
+            var sql = $"CREATE TABLE IF NOT EXISTS [{typeof(T).Name}] ({fields}) WITHOUT ROWID";
 
             ExecuteNonQuery(sql, connection);
         }
@@ -68,8 +64,10 @@ namespace Cashflow.Test.UnitTest.Repository
                 .ToDictionary(x => x.Name, y => y.GetValue(item, null));
 
             var fields = string.Join(", ", properties.Select(x => $"[{x.Key}]"));
+
             var values = string.Join(", ", properties.Select(x => EnsureSqlSafe(x.Value)));
-            var sql = $"INSERT INTO [{tableName}] ({fields}) VALUES ({values})";
+
+            var sql = $"INSERT INTO [{typeof(T).Name}] ({fields}) VALUES ({values})";
 
             ExecuteNonQuery(sql, connection);
         }
@@ -93,6 +91,7 @@ namespace Cashflow.Test.UnitTest.Repository
             using (var com = connection.CreateCommand())
             {
                 com.CommandText = commandText;
+
                 com.ExecuteNonQuery();
             }
         }
