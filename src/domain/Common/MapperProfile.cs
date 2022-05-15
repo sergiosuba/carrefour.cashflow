@@ -1,4 +1,6 @@
 using AutoMapper;
+using cashflow.domain.DTO;
+using cashflow.domain.Entity;
 
 namespace cashflow.domain.common
 {
@@ -6,7 +8,8 @@ namespace cashflow.domain.common
     {
         public MapperProfile()
         {
-
+            CreateMap<AccountingEntry, AccountingEntryDTO>();
+            CreateMap<AccountingEntryDTO, AccountingEntry>();
         }
     }
 }
