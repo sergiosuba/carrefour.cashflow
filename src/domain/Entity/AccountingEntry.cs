@@ -1,9 +1,11 @@
 using System;
+using Dapper.Contrib.Extensions;
 
 namespace cashflow.domain.Entity
 {
     public class AccountingEntry
     {
+        [ExplicitKey]
         public string id { get; set; }
         public string chartAccountId { get; set; }
         public decimal value { get; set; }

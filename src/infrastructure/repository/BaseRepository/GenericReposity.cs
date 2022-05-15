@@ -19,7 +19,8 @@ namespace cashflow.infrastructure.repository
         public GenericRepository(IDatabaseConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
-            //SqlMapperExtensions.TableNameMapper = (type) => type.Name; //usar o nome da classe entity como mesmo nome de tabeela.
+
+            SqlMapperExtensions.TableNameMapper = (type) => type.Name;
         }
 
         public async Task AddAsync(TEntity entity)
@@ -33,7 +34,8 @@ namespace cashflow.infrastructure.repository
                     }
                     catch (Exception e)
                     {
-                        throw new Exception($"{nameof(AddAsync)} -> Error adding a new record. Exception: {e.Message}");
+                        if (!e.Message.Trim().Contains("no such function: SCOPE_IDENTITY")) //TODO Required for SQLite support used in unit tests
+                            throw new Exception($"{nameof(AddAsync)} -> Error adding a new record. Exception: {e.Message}");
                     }
                 }
             }
@@ -127,7 +129,7 @@ namespace cashflow.infrastructure.repository
                 }
                 catch (Exception e)
                 {
-                    throw new Exception($"{nameof(ExecuteStoredProcedureAsync)} -> Error executin store procedure. Exception : {e.Message}");
+                    throw new Exception($"{nameof(ExecuteStoredProcedureAsync)} -> Error execution store procedure. Exception : {e.Message}");
                 }
             }
         }

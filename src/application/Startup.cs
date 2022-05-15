@@ -11,6 +11,9 @@ using Microsoft.OpenApi.Models;
 using AutoMapper;
 using cashflow.infrastructure.security;
 using cashflow.domain.common;
+using cashflow.domain.Interface.Repository;
+using cashflow.repository;
+using cashflow.infrastructure.repository;
 
 namespace cashflow.application
 {
@@ -64,7 +67,11 @@ namespace cashflow.application
                 });
             });
 
+            //services
 
+            //repositories
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IAccountingEntryRepository, AccountingEntryRepository>();
 
             //token
             var SecretKey = Encoding.ASCII.GetBytes(Settings.Secret);
