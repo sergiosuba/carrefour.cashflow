@@ -28,6 +28,7 @@ namespace cashflow.domain.Validators
             RuleFor(x => x.Description)
                 .Cascade(CascadeMode.Stop)
                 .NotNull().WithMessage("The Description value should be beetween 3 and 400 characters.")
+                .NotEmpty().WithMessage("The Description value should be beetween 3 and 400 characters.")
                 .Must(x => x.Length >= 3 && x.Length <= 400)
                 .WithMessage("The Description value should be beetween 3 and 400 characters.");
 

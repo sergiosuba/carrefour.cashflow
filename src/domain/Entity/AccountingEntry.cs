@@ -11,6 +11,6 @@ namespace cashflow.domain.Entity
         public decimal value { get; set; }
         public string flowId { get; set; }
         public string description { get; set; }
-        public DateTime creationDate { get; set; }
+        public DateTime? creationDate { get; set; }
     }
 }

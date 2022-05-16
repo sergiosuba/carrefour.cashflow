@@ -7,13 +7,14 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.Mvc.HttpActionResults" Version="0.3.0" />
+    <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.6.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Autofac" Version="5.1.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.3.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="FluentValidation" Version="10.3.4" />

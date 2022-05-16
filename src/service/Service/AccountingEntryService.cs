@@ -39,6 +39,7 @@ namespace cashflow.service
                 _logger.LogInformation($"Executed -> {nameof(AddAsync)}");
 
                 accountingEntryDTO.Id = System.Guid.NewGuid().ToString().ToUpper();
+                accountingEntryDTO.CreationDate = DateTime.Now;
 
                 Dispose();
 

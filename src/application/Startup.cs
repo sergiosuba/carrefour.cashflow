@@ -17,6 +17,7 @@ using cashflow.infrastructure.repository;
 using cashflow.infrastructure.common;
 using cashflow.service;
 using cashflow.domain.Interface.Service;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 
 namespace cashflow.application
 {
@@ -70,6 +71,7 @@ namespace cashflow.application
                 });
             });
 
+            services.AddFluentValidationRulesToSwagger();
             //services
             services.AddScoped<IUserService, UserService>();
 

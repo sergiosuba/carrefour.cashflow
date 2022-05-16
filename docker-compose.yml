@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: src/application/Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3001"
 
   db:
     image: sergiosuba/mysql:8.0
