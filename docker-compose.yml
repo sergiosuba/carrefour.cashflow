@@ -1,0 +1,40 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+volumes:
+  data:
+
+
+services:
+  cashflow-application-api:
+    image: cashflow-application-api
+    build:
+      context: .
+      dockerfile: src/application/Dockerfile
+    ports:
+      - "3000:3000"
+
+  db:
+    image: sergiosuba/mysql:8.0
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=Sistemas!23
+      - MYSQL_DATABASE=cashflow
+      - interactive_timeout=1
+      - wait_timeout=1
+
+  app:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
