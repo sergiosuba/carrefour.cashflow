@@ -14,59 +14,53 @@ using cashflow.service;
 
 namespace Cashflow.Test.UnitTest.Repository
 {
-    public class AccountingEntryServiceTestAdd : BaseTest
+    public class AccountingEntryServiceTestGetById : BaseTest
     {
         private IAccountingEntryService _accountingEntryService;
         private readonly AutoMocker _autoMocker;
         private Mock<IAccountingEntryRepository> _accountingEntryRepository;
-        private Mock<IGenericRepository<AccountingEntry>> _genericRepository;
-
         private Mock<IMapper> _mapperMock;
         private static readonly IMapper _mapper = new MapperConfiguration(x =>
         {
             x.AddProfile(new MapperProfile());
         }).CreateMapper();
 
-        public AccountingEntryServiceTestAdd()
+        public AccountingEntryServiceTestGetById()
         {
             _autoMocker = new AutoMocker();
             _accountingEntryRepository = _autoMocker.GetMock<IAccountingEntryRepository>();
-            _genericRepository = _autoMocker.GetMock<IGenericRepository<AccountingEntry>>();
             _mapperMock = _autoMocker.GetMock<IMapper>();
             _accountingEntryService = _autoMocker.CreateInstance<AccountingEntryService>();
         }
 
         [Theory]
         [AutoDomainDataAttribute]
-        public async Task AddAsyncTest_Success(
+        public async Task GetByIdAsyncTest_Success(
             [Frozen] AccountingEntryDTO accountingEntryDTO
         )
         {
             try
             {
                 //Given
+                accountingEntryDTO.Id = "19c95d2f-8cab-40f4-a04d-61975c403251";
+
                 var accountingEntry = _mapper.Map<AccountingEntry>(accountingEntryDTO);
 
                 _mapperMock.Setup(x => x.Map<AccountingEntry>(It.IsAny<AccountingEntryDTO>()))
                     .Returns(accountingEntry);
 
-                _accountingEntryRepository.Setup(x => x.AddAsync(It.IsAny<AccountingEntry>()));
-
-                _genericRepository.Setup(x => x.AddAsync(It.IsAny<AccountingEntry>()));
+                _accountingEntryRepository.Setup(x => x.GetByIdAsync(It.IsAny<string>()))
+                    .ReturnsAsync(accountingEntry);
 
                 //When
-                var result = await _accountingEntryService.AddAsync(accountingEntryDTO);
+                var result = await _accountingEntryService.GetByIdAsync(accountingEntryDTO.Id);
 
                 //Then
-                Assert.True(result.IsSuccess);
-                Assert.Equal(201, result.Code);
-                Assert.Equal("Record successfully added", result.Info);
-                Assert.Equal(string.Empty, result.Error);
-                Assert.False(result.IsFailure);
+                Assert.True(true);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(AddAsyncTest_Success)} -> Message: {e.Message}");
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetByIdAsyncTest_Success)} -> Message: {e.Message}");
 
                 Assert.Null(e);
             }

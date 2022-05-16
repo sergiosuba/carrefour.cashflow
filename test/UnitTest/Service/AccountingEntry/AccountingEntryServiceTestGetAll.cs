@@ -11,23 +11,23 @@ using cashflow.domain.Entity;
 using cashflow.domain.Services;
 using cashflow.domain.Interface.Repository;
 using cashflow.service;
+using System.Collections.Generic;
 
 namespace Cashflow.Test.UnitTest.Repository
 {
-    public class AccountingEntryServiceTestAdd : BaseTest
+    public class AccountingEntryServiceTestGetAll : BaseTest
     {
         private IAccountingEntryService _accountingEntryService;
         private readonly AutoMocker _autoMocker;
         private Mock<IAccountingEntryRepository> _accountingEntryRepository;
         private Mock<IGenericRepository<AccountingEntry>> _genericRepository;
-
         private Mock<IMapper> _mapperMock;
         private static readonly IMapper _mapper = new MapperConfiguration(x =>
         {
             x.AddProfile(new MapperProfile());
         }).CreateMapper();
 
-        public AccountingEntryServiceTestAdd()
+        public AccountingEntryServiceTestGetAll()
         {
             _autoMocker = new AutoMocker();
             _accountingEntryRepository = _autoMocker.GetMock<IAccountingEntryRepository>();
@@ -38,35 +38,39 @@ namespace Cashflow.Test.UnitTest.Repository
 
         [Theory]
         [AutoDomainDataAttribute]
-        public async Task AddAsyncTest_Success(
-            [Frozen] AccountingEntryDTO accountingEntryDTO
+        public async Task GetByIdAsyncTest_Success(
+            [Frozen] List<AccountingEntry> accountingEntry
         )
         {
             try
             {
                 //Given
-                var accountingEntry = _mapper.Map<AccountingEntry>(accountingEntryDTO);
+                var accountingEntryFilterDTO = new AccountingEntryFilterDTO();
 
-                _mapperMock.Setup(x => x.Map<AccountingEntry>(It.IsAny<AccountingEntryDTO>()))
-                    .Returns(accountingEntry);
+                var accountingEntryDTO = _mapper.Map<List<AccountingEntryDTO>>(accountingEntry);
 
-                _accountingEntryRepository.Setup(x => x.AddAsync(It.IsAny<AccountingEntry>()));
+                _mapperMock.Setup(x => x.Map<List<AccountingEntryDTO>>(It.IsAny<List<AccountingEntry>>()))
+                    .Returns(accountingEntryDTO);
 
-                _genericRepository.Setup(x => x.AddAsync(It.IsAny<AccountingEntry>()));
+                _accountingEntryRepository.Setup(x => x.GetAllAsync(It.IsAny<AccountingEntryFilterDTO>()))
+                    .ReturnsAsync(accountingEntry);
+
+                _accountingEntryRepository.Setup(x => x.GetAllAsync(It.IsAny<AccountingEntryFilterDTO>))
+                    .ReturnsAsync(accountingEntry);
 
                 //When
-                var result = await _accountingEntryService.AddAsync(accountingEntryDTO);
+                var result = await _accountingEntryService.GetAllAsync(accountingEntryFilterDTO);
 
                 //Then
                 Assert.True(result.IsSuccess);
-                Assert.Equal(201, result.Code);
-                Assert.Equal("Record successfully added", result.Info);
+                Assert.Equal(200, result.Code);
+                Assert.Equal("Record(s) successfully recovered", result.Info);
                 Assert.Equal(string.Empty, result.Error);
                 Assert.False(result.IsFailure);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(AddAsyncTest_Success)} -> Message: {e.Message}");
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetByIdAsyncTest_Success)} -> Message: {e.Message}");
 
                 Assert.Null(e);
             }
