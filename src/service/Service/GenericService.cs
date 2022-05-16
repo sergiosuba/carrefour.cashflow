@@ -8,7 +8,7 @@ using cashflow.infrastructure.common;
 using cashflow.domain.Services;
 using cashflow.domain.Interface.Repository;
 
-namespace cashflow.applicationservice
+namespace cashflow.service
 {
     public class GenericService<T, TEntity> : BaseAppService, IGenericService<T, TEntity> where T : class where TEntity : class
     {
@@ -44,11 +44,15 @@ namespace cashflow.applicationservice
 
                 _logger.LogInformation($"result -> {nameof(AddAsync)}");
 
+                Dispose();
+
                 return Result.Ok<T>(201, "Record successfully added", dto);
             }
             catch (ValidationException e)
             {
                 _logger.LogWarning($"Unable to add record. Warnning: {e.Message}");
+
+                Dispose();
 
                 return Result.Fail<T>(400, $"Unable to add record. Contact the administrator.", e.Message);
             }
@@ -57,6 +61,8 @@ namespace cashflow.applicationservice
                 var exception = _exceptionHandler.Handler(e);
 
                 _logger.LogError($"Unable to add record. Exception: {exception.MessageException}");
+
+                Dispose();
 
                 return Result.Fail<T>(exception.Code, "Unable to add record. Contact the administrator.", exception.MessageException);
             }
@@ -84,6 +90,8 @@ namespace cashflow.applicationservice
                 {
                     _logger.LogInformation($"result -> {nameof(GetByIdAsync)}");
 
+                    Dispose();
+
                     return Result.Ok<T>(200, "Record not found", null);
                 }
             }
@@ -92,6 +100,8 @@ namespace cashflow.applicationservice
                 var exception = _exceptionHandler.Handler(e);
 
                 _logger.LogError($"Unable to get application record. Exception: {exception.MessageException}");
+
+                Dispose();
 
                 return Result.Fail<T>(exception.Code, "Unable to get a record. Contact the administrator.", $"Exception: {exception.MessageException}");
             }
@@ -110,11 +120,15 @@ namespace cashflow.applicationservice
                 {
                     _logger.LogInformation($"result -> {nameof(GetAllAsync)}");
 
+                    Dispose();
+
                     return Result.Ok<IEnumerable<T>>(200, "Record(s) successfully recovered", dto);
                 }
                 else
                 {
                     _logger.LogInformation($"result -> {nameof(GetAllAsync)}");
+
+                    Dispose();
 
                     return Result.Ok<IEnumerable<T>>(200, "Record not found", dto);
                 }
@@ -140,9 +154,11 @@ namespace cashflow.applicationservice
                 var entity = _mapper.Map<TEntity>(dto);
 
                 if (!await _genericRepository.UpdateAsync(entity))
-                    throw new Exception("Unable to update record in database");
+                    throw new Exception("Not found or not modified (tracked entities)");
 
                 _logger.LogInformation($"result -> {nameof(UpdateAsync)}");
+
+                Dispose();
 
                 return Result.Ok<T>(200, "Record successfully updated", dto);
             }
@@ -157,6 +173,8 @@ namespace cashflow.applicationservice
                 var exception = _exceptionHandler.Handler(e);
 
                 _logger.LogError($"Unable to update record. Exception: {exception.MessageException}");
+
+                Dispose();
 
                 return Result.Fail<T>(exception.Code, "Unable to update a record. Contact the administrator.", $"Exception: {exception.MessageException}");
             }
@@ -179,11 +197,15 @@ namespace cashflow.applicationservice
 
                     _logger.LogInformation($"result -> {nameof(DeleteAsync)}");
 
+                    Dispose();
+
                     return Result.Ok<T>(200, "Record successfully deleted", null);
                 }
                 else
                 {
                     _logger.LogInformation($"result -> {nameof(DeleteAsync)}");
+
+                    Dispose();
 
                     return Result.Ok<T>(200, "Record not found", null);
                 }
@@ -193,6 +215,8 @@ namespace cashflow.applicationservice
                 var exception = _exceptionHandler.Handler(e);
 
                 _logger.LogError($"Unable to delete record. Exception: {exception.MessageException}");
+
+                Dispose();
 
                 return Result.Fail<T>(exception.Code, "Unable to delete a record. Contact the administrator.", $"Exception: {exception.MessageException}");
             }
@@ -212,11 +236,15 @@ namespace cashflow.applicationservice
                 {
                     _logger.LogInformation($"result -> {nameof(ExecuteStoredProcedureAsync)}");
 
+                    Dispose();
+
                     return Result.Ok<IEnumerable<dynamic>>(200, "Record(s) successfully recovered", result);
                 }
                 else
                 {
                     _logger.LogInformation($"result -> {nameof(ExecuteStoredProcedureAsync)}");
+
+                    Dispose();
 
                     return Result.Ok<IEnumerable<dynamic>>(200, "Record not found", result);
                 }
@@ -226,6 +254,8 @@ namespace cashflow.applicationservice
                 var exception = _exceptionHandler.Handler(e);
 
                 _logger.LogError($"Unable to get all record(s). Exception: {exception.MessageException}");
+
+                Dispose();
 
                 return Result.Fail<IEnumerable<dynamic>>(exception.Code, "Unable to get all record(s). Contact the administrator.", $"Exception: {exception.MessageException}");
             }

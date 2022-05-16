@@ -18,3 +18,21 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+# Unit Test Coverage
+    - Run Unit Test
+        dotnet test --collect:"XPlat Code Coverage"
+
+        O "XPlat Code Coverage" argumento é um nome amigável que corresponde aos coletores de dados do Coverlet. Esse nome é necessário, mas não diferencia maiúsculas de minúsculas.
+
+    - Report Generator
+        - install
+            dotnet tool install -g dotnet-reportgenerator-globaltool
+        
+        - Generate command
+            reportgenerator -reports:"TestResults\{guid}\coverage.cobertura.xml" -targetdir:"TestResultsCoverageReport" -reporttypes:Html
+
+        - View
+            Chrome - <solutionPath>test/TestResultsCoverageReport/index.html
+
+visit https://docs.microsoft.com/pt-br/dotnet/core/testing/unit-testing-code-coverage?tabs=linux
