@@ -19,7 +19,6 @@ namespace Cashflow.Test.UnitTest.Repository
     {
         private IAccountingEntryService _accountingEntryService;
         private readonly AutoMocker _autoMocker;
-        private Mock<IAccountingEntryRepository> _accountingEntryRepository;
         private Mock<IGenericRepository<AccountingEntry>> _genericRepository;
         private Mock<IMapper> _mapperMock;
         private static readonly IMapper _mapper = new MapperConfiguration(x =>
@@ -30,7 +29,6 @@ namespace Cashflow.Test.UnitTest.Repository
         public AccountingEntryServiceTestGetAll()
         {
             _autoMocker = new AutoMocker();
-            _accountingEntryRepository = _autoMocker.GetMock<IAccountingEntryRepository>();
             _genericRepository = _autoMocker.GetMock<IGenericRepository<AccountingEntry>>();
             _mapperMock = _autoMocker.GetMock<IMapper>();
             _accountingEntryService = _autoMocker.CreateInstance<AccountingEntryService>();
@@ -52,10 +50,7 @@ namespace Cashflow.Test.UnitTest.Repository
                 _mapperMock.Setup(x => x.Map<List<AccountingEntryDTO>>(It.IsAny<List<AccountingEntry>>()))
                     .Returns(accountingEntryDTO);
 
-                _accountingEntryRepository.Setup(x => x.GetAllAsync(It.IsAny<AccountingEntryFilterDTO>()))
-                    .ReturnsAsync(accountingEntry);
-
-                _accountingEntryRepository.Setup(x => x.GetAllAsync(It.IsAny<AccountingEntryFilterDTO>))
+                _genericRepository.Setup(x => x.GetAllAsync(It.IsAny<AccountingEntryFilterDTO>()))
                     .ReturnsAsync(accountingEntry);
 
                 //When

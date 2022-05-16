@@ -11,63 +11,61 @@ using cashflow.domain.Entity;
 using cashflow.domain.Services;
 using cashflow.domain.Interface.Repository;
 using cashflow.service;
+using System.Collections.Generic;
 
 namespace Cashflow.Test.UnitTest.Repository
 {
-    public class AccountingEntryServiceTestDelete : BaseTest
+    public class AccountingEntryServiceTestGetAllView : BaseTest
     {
         private IAccountingEntryService _accountingEntryService;
         private readonly AutoMocker _autoMocker;
-        private Mock<IGenericRepository<AccountingEntry>> _genericRepository;
+        private Mock<IAccountingEntryRepository> _accountingEntryRepository;
         private Mock<IMapper> _mapperMock;
         private static readonly IMapper _mapper = new MapperConfiguration(x =>
         {
             x.AddProfile(new MapperProfile());
         }).CreateMapper();
 
-        public AccountingEntryServiceTestDelete()
+        public AccountingEntryServiceTestGetAllView()
         {
             _autoMocker = new AutoMocker();
-            _genericRepository = _autoMocker.GetMock<IGenericRepository<AccountingEntry>>();
+            _accountingEntryRepository = _autoMocker.GetMock<IAccountingEntryRepository>();
             _mapperMock = _autoMocker.GetMock<IMapper>();
             _accountingEntryService = _autoMocker.CreateInstance<AccountingEntryService>();
         }
 
         [Theory]
         [AutoDomainDataAttribute]
-        public async Task DeleteAsyncTest_Success(
-            [Frozen] AccountingEntryDTO accountingEntryDTO
+        public async Task GetByIdAsyncTest_Success(
+            [Frozen] List<AccountingEntry> accountingEntry
         )
         {
             try
             {
                 //Given
-                accountingEntryDTO.Id = "19c95d2f-8cab-40f4-a04d-61975c403251";
+                var accountingEntryFilterDTO = new AccountingEntryFilterDTO();
 
-                var accountingEntry = _mapper.Map<AccountingEntry>(accountingEntryDTO);
+                var accountingEntryDTO = _mapper.Map<List<AccountingEntryDTO>>(accountingEntry);
 
-                _mapperMock.Setup(x => x.Map<AccountingEntry>(It.IsAny<AccountingEntryDTO>()))
-                    .Returns(accountingEntry);
+                _mapperMock.Setup(x => x.Map<List<AccountingEntryDTO>>(It.IsAny<List<AccountingEntry>>()))
+                    .Returns(accountingEntryDTO);
 
-                _genericRepository.Setup(x => x.GetByIdAsync(It.IsAny<string>()))
+                _accountingEntryRepository.Setup(x => x.GetAllViewAsync(It.IsAny<AccountingEntryFilterDTO>()))
                     .ReturnsAsync(accountingEntry);
 
-                _genericRepository.Setup(x => x.DeleteAsync(It.IsAny<AccountingEntry>()))
-                    .ReturnsAsync(true);
-
                 //When
-                var result = await _accountingEntryService.DeleteAsync(accountingEntryDTO.Id);
+                var result = await _accountingEntryService.GetAllViewAsync(accountingEntryFilterDTO);
 
                 //Then
                 Assert.True(result.IsSuccess);
                 Assert.Equal(200, result.Code);
-                Assert.Equal("Record successfully deleted", result.Info);
+                Assert.Equal("Record(s) successfully recovered", result.Info);
                 Assert.Equal(string.Empty, result.Error);
                 Assert.False(result.IsFailure);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(DeleteAsyncTest_Success)} -> Message: {e.Message}");
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetByIdAsyncTest_Success)} -> Message: {e.Message}");
 
                 Assert.Null(e);
             }

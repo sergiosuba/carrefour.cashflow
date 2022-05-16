@@ -18,7 +18,7 @@ namespace Cashflow.Test.UnitTest.Repository
     {
         private IAccountingEntryService _accountingEntryService;
         private readonly AutoMocker _autoMocker;
-        private Mock<IAccountingEntryRepository> _accountingEntryRepository;
+        private Mock<IGenericRepository<AccountingEntry>> _genericRepository;
         private Mock<IMapper> _mapperMock;
         private static readonly IMapper _mapper = new MapperConfiguration(x =>
         {
@@ -28,7 +28,7 @@ namespace Cashflow.Test.UnitTest.Repository
         public AccountingEntryServiceTestGetById()
         {
             _autoMocker = new AutoMocker();
-            _accountingEntryRepository = _autoMocker.GetMock<IAccountingEntryRepository>();
+            _genericRepository = _autoMocker.GetMock<IGenericRepository<AccountingEntry>>();
             _mapperMock = _autoMocker.GetMock<IMapper>();
             _accountingEntryService = _autoMocker.CreateInstance<AccountingEntryService>();
         }
@@ -49,14 +49,18 @@ namespace Cashflow.Test.UnitTest.Repository
                 _mapperMock.Setup(x => x.Map<AccountingEntry>(It.IsAny<AccountingEntryDTO>()))
                     .Returns(accountingEntry);
 
-                _accountingEntryRepository.Setup(x => x.GetByIdAsync(It.IsAny<string>()))
+                _genericRepository.Setup(x => x.GetByIdAsync(It.IsAny<string>()))
                     .ReturnsAsync(accountingEntry);
 
                 //When
                 var result = await _accountingEntryService.GetByIdAsync(accountingEntryDTO.Id);
 
                 //Then
-                Assert.True(true);
+                Assert.True(result.IsSuccess);
+                Assert.Equal(200, result.Code);
+                Assert.Equal("Record successfully geted", result.Info);
+                Assert.Equal(string.Empty, result.Error);
+                Assert.False(result.IsFailure);
             }
             catch (Exception e)
             {

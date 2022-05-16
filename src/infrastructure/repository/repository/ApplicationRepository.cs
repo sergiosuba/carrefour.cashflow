@@ -25,11 +25,11 @@ namespace cashflow.repository
         {
             using (var conn = _connectionFactory.GetConnection())
             {
-                sql = $"SELECT id, a.chartAccountId, a.value, a.flowId, a.description, a.creationDate " +
-                      "FROM AccountingEntry a " +
+                sql = $"SELECT id, chartAccountId, value, flowId, description, creationDate " +
+                      "FROM AccountingEntry " +
                       "WHERE 1 = 1 ";
 
-                sql += "ORDER BY a.application";
+                sql += "ORDER BY creationDate desc";
 
                 try
                 {

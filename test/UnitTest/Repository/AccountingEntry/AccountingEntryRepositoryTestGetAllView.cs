@@ -9,13 +9,13 @@ using cashflow.domain.DTO;
 
 namespace Cashflow.Test.UnitTest.Repository
 {
-    public class AccountingEntryRepositoryTestGetAll : BaseTest
+    public class AccountingEntryRepositoryTestGetAllView : BaseTest
     {
         public AccountingEntryRepository accountingEntryRepository = new AccountingEntryRepository(GetApplicationRespository());
 
         [Theory]
         [AutoDomainDataAttribute]
-        public async Task GetAllAsync_Success(
+        public async Task GetAllViewAsync_Success(
             [Frozen] AccountingEntry accountingEntry
         )
         {
@@ -29,14 +29,14 @@ namespace Cashflow.Test.UnitTest.Repository
                 InMemoryDatabase.Insert(accountingEntries);
 
                 //When
-                var result = await accountingEntryRepository.GetAllAsync(accountEntryFilterDTO);
+                var result = await accountingEntryRepository.GetAllViewAsync(accountEntryFilterDTO);
 
                 //Then
                 Assert.True(true);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetAllAsync_Success)} -> Message: {e.Message}");
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetAllViewAsync_Success)} -> Message: {e.Message}");
 
                 Assert.Null(e);
             }
