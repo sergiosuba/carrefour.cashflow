@@ -5,12 +5,12 @@ using AutoMapper;
 using Moq.AutoMock;
 using AutoFixture.Xunit2;
 using System.Threading.Tasks;
+using cashflow.service;
 using cashflow.domain.DTO;
 using cashflow.domain.common;
 using cashflow.domain.Entity;
-using cashflow.domain.Services;
+using cashflow.domain.Interface.Service;
 using cashflow.domain.Interface.Repository;
-using cashflow.service;
 
 namespace Cashflow.Test.UnitTest.Repository
 {

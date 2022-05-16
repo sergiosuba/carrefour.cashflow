@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
 using FluentValidation;
+using cashflow.domain.Service;
 using cashflow.infrastructure.common;
-using cashflow.domain.Services;
 using cashflow.domain.Interface.Repository;
 
 namespace cashflow.service

@@ -14,6 +14,9 @@ using cashflow.domain.common;
 using cashflow.domain.Interface.Repository;
 using cashflow.repository;
 using cashflow.infrastructure.repository;
+using cashflow.infrastructure.common;
+using cashflow.service;
+using cashflow.domain.Interface.Service;
 
 namespace cashflow.application
 {
@@ -68,10 +71,20 @@ namespace cashflow.application
             });
 
             //services
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IAccountingEntryService, AccountingEntryService>();
 
             //repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IAccountingEntryRepository, AccountingEntryRepository>();
+            services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
+
+            //common
+            services.AddScoped(typeof(IValidation<>), typeof(Validation<>));
+            services.AddScoped(typeof(ILogger<>), typeof(Logger<>));
+            services.AddScoped<IExceptionHandler, ExceptionHandler>();
+            services.AddScoped<IJwtAuthManagerService, JwtAuthManagerService>();
 
             //token
             var SecretKey = Encoding.ASCII.GetBytes(Settings.Secret);

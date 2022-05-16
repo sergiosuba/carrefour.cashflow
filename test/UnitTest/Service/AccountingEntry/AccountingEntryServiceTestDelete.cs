@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using cashflow.domain.DTO;
 using cashflow.domain.common;
 using cashflow.domain.Entity;
-using cashflow.domain.Services;
 using cashflow.domain.Interface.Repository;
 using cashflow.service;
+using cashflow.domain.Interface.Service;
 
 namespace Cashflow.Test.UnitTest.Repository
 {

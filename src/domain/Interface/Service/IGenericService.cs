@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using FluentValidation;
 using cashflow.infrastructure.common;
 
-namespace cashflow.domain.Services
+namespace cashflow.domain.Service
 {
     public interface IGenericService<T, TEntity> where T : class where TEntity : class
     {

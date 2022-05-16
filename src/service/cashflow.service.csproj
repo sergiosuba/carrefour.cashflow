@@ -16,5 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\domain\cashflow.domain.csproj" />
+    <ProjectReference Include="..\infrastructure\security\cashflow.security.csproj" />
   </ItemGroup>
 </Project>

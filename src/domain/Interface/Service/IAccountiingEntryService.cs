@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using cashflow.infrastructure.common;
 using cashflow.domain.DTO;
-using cashflow.domain.Services;
 using cashflow.domain.Entity;
+using cashflow.domain.Service;
+using cashflow.infrastructure.common;
 
-namespace cashflow.domain.Services
+namespace cashflow.domain.Interface.Service
 {
     public interface IAccountingEntryService : IGenericService<AccountingEntryDTO, AccountingEntry>, IDisposable
     {
