@@ -16,35 +16,35 @@ namespace cashflow.infrastructure.common
         {
             _logger.LogInformation(message);
 
-            Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString} - At {typeof(T).Name} - LogInformation: {message}");
+            Console.WriteLine($"{DateTime.Now} - At {typeof(T).Name} - LogInformation: {message}");
         }
 
         public void LogError(string message)
         {
             _logger.LogError(message);
 
-            Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString} - At {typeof(T).Name} - LogError: {message}");
+            Console.WriteLine($"{DateTime.Now} - At {typeof(T).Name} - LogError: {message}");
         }
 
         public void LogWarning(string message)
         {
             _logger.LogWarning(message);
 
-            Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString} - At {typeof(T).Name} - LogWarning: {message}");
+            Console.WriteLine($"{DateTime.Now} - At {typeof(T).Name} - LogWarning: {message}");
         }
 
         public void LogCritical(string message)
         {
             _logger.LogCritical(message);
 
-            Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString} - At {typeof(T).Name} - LogCritical: {message}");
+            Console.WriteLine($"{DateTime.Now} - At {typeof(T).Name} - LogCritical: {message}");
         }
 
         public void LogTrace(string message)
         {
             _logger.LogTrace(message);
 
-            Console.WriteLine($"{DateTime.UtcNow.ToLongTimeString} - At {typeof(T).Name} - LogTrace: {message}");
+            Console.WriteLine($"{DateTime.Now} - At {typeof(T).Name} - LogTrace: {message}");
         }
     }
 }
