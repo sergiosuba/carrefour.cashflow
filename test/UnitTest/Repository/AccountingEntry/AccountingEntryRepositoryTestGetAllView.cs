@@ -22,14 +22,12 @@ namespace Cashflow.Test.UnitTest.Repository
             try
             {
                 //Given
-                var accountEntryFilterDTO = new AccountingEntryFilterDTO();
-
                 var accountingEntries = new List<AccountingEntry>();
 
                 InMemoryDatabase.Insert(accountingEntries);
 
                 //When
-                var result = await accountingEntryRepository.GetAllViewAsync(accountEntryFilterDTO);
+                var result = await accountingEntryRepository.GetAllViewAsync();
 
                 //Then
                 Assert.True(true);

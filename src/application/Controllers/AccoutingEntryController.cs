@@ -46,11 +46,11 @@ namespace Cashflow.Application.Controllers
         [HttpPost(nameof(GetAllViewAsync))]
         [SwaggerOperation(nameof(GetAllViewAsync))]
         [Authorize]
-        public async Task<Result<IEnumerable<dynamic>>> GetAllViewAsync(AccountingEntryFilterDTO accountingEntryFilterDTO)
+        public async Task<Result<IEnumerable<dynamic>>> GetAllViewAsync()
         {
             _logger.LogInformation($"{nameof(GetAllViewAsync)} -> Start");
 
-            return await _accountingEntryService.GetAllViewAsync(accountingEntryFilterDTO);
+            return await _accountingEntryService.GetAllViewAsync();
         }
 
         [HttpGet(nameof(GetByIdAsync))]

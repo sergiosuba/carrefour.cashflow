@@ -21,15 +21,15 @@ namespace cashflow.repository
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<IEnumerable<dynamic>> GetAllViewAsync(AccountingEntryFilterDTO accountingEntryFilterDTO)
+        public async Task<IEnumerable<dynamic>> GetAllViewAsync()
         {
             using (var conn = _connectionFactory.GetConnection())
             {
-                sql = $"SELECT id, chartAccountId, value, flowId, description, creationDate " +
-                      "FROM AccountingEntry " +
-                      "WHERE 1 = 1 ";
-
-                sql += "ORDER BY creationDate desc";
+                sql = $"Select a.creationDate as Date, f.flow as Fluxo, Concat('R$ ', Format(IFNULL(SUM(a.value), 0), 2)) as Total " +
+                       "From AccountingEntry a " +
+                       "JOIN Flow f ON a.flowId = f.id " +
+                       "WHERE '1 = 1 ' " +
+                       "GROUP BY a.creationDate, f.flow ORDER BY a.creationDate DESC";
 
                 try
                 {

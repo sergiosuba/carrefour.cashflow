@@ -4,7 +4,8 @@ namespace cashflow.domain.DTO
 {
     public class AccountingEntryFilterDTO
     {
-        public DateTime? StarDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public string ChartAccountId { get; set; }
+        public string FlowId { get; set; }
+        public DateTime? CreationDate { get; set; }
     }
 }

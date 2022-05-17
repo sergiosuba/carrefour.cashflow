@@ -12,6 +12,6 @@ namespace cashflow.domain.Interface.Service
     {
         Task<Result<AccountingEntryDTO>> AddAsync(AccountingEntryDTO accountingEntryDTO);
         Task<Result<AccountingEntryDTO>> UpdateAsync(AccountingEntryDTO accountingEntryDTO);
-        Task<Result<IEnumerable<dynamic>>> GetAllViewAsync(AccountingEntryFilterDTO accountingEntryFilterDTO);
+        Task<Result<IEnumerable<dynamic>>> GetAllViewAsync();
     }
 }

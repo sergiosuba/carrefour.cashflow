@@ -7,6 +7,6 @@ namespace cashflow.domain.Interface.Repository
 {
     public interface IAccountingEntryRepository : IGenericRepository<AccountingEntry>
     {
-        Task<IEnumerable<dynamic>> GetAllViewAsync(AccountingEntryFilterDTO filter);
+        Task<IEnumerable<dynamic>> GetAllViewAsync();
     }
 }

@@ -79,13 +79,13 @@ namespace cashflow.service
             }
         }
 
-        public async Task<Result<IEnumerable<dynamic>>> GetAllViewAsync(AccountingEntryFilterDTO accountingEntryFilterDTO)
+        public async Task<Result<IEnumerable<dynamic>>> GetAllViewAsync()
         {
             try
             {
                 _logger.LogInformation($"Executed -> {nameof(GetAllAsync)}");
 
-                var result = await _accountingEntryRepository.GetAllViewAsync(accountingEntryFilterDTO);
+                var result = await _accountingEntryRepository.GetAllViewAsync();
 
                 if (Enumerable.Count(result) > 0)
                 {

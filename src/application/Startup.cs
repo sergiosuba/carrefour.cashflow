@@ -35,6 +35,8 @@ namespace cashflow.application
             services.AddAutoMapper(typeof(MapperProfile));
             services.AddControllers();
             services.AddMemoryCache();
+            services.AddFluentValidationRulesToSwagger();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1",
@@ -71,7 +73,6 @@ namespace cashflow.application
                 });
             });
 
-            services.AddFluentValidationRulesToSwagger();
             //services
             services.AddScoped<IUserService, UserService>();
 
