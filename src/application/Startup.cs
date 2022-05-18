@@ -77,10 +77,12 @@ namespace cashflow.application
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IAccountingEntryService, AccountingEntryService>();
+            services.AddScoped<IFlowService, FlowService>();
 
             //repositories
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IAccountingEntryRepository, AccountingEntryRepository>();
+            services.AddScoped<IFlowRepository, FlowRepository>();
             services.AddScoped<IDatabaseConnectionFactory, DatabaseConnectionFactory>();
 
             //common
