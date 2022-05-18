@@ -12,6 +12,8 @@ namespace cashflow.domain.common
             CreateMap<AccountingEntryDTO, AccountingEntry>();
             CreateMap<Flow, FlowDTO>();
             CreateMap<FlowDTO, Flow>();
+            CreateMap<ChartAccount, ChartAccountDTO>();
+            CreateMap<ChartAccountDTO, ChartAccount>();
         }
     }
 }

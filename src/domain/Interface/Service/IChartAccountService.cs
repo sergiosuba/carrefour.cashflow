@@ -8,9 +8,9 @@ using cashflow.infrastructure.common;
 
 namespace cashflow.domain.Interface.Service
 {
-    public interface IChartAccountService : IGenericService<FlowDTO, Flow>, IDisposable
+    public interface IChartAccountService : IGenericService<ChartAccountDTO, ChartAccount>, IDisposable
     {
-        Task<Result<FlowDTO>> AddAsync(FlowDTO flowDTO);
-        Task<Result<FlowDTO>> UpdateAsync(FlowDTO flowDTO);
+        Task<Result<ChartAccountDTO>> AddAsync(ChartAccountDTO chartAccountDTO);
+        Task<Result<ChartAccountDTO>> UpdateAsync(ChartAccountDTO chartAccountDTO);
     }
 }
