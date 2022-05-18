@@ -1,38 +1,47 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Pre-condition
+    1. "Docker Desktop Installer.exe" install
+        https://docs.docker.com/desktop/windows/install/
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+    2. Install Report Generator
+    dotnet tool install -g dotnet-reportgenerator-globaltool
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Run Appllication (vs code)
+    1. Navegue até o diretório da aplicação (localPath\Carrefour)
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+    2. Abra o terminal e digite o comando
+        docker-compose -f "docker-compose.yml" up -d --build
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+    3. Abra o Navegador em "http://localhost:8080/index.php"
+        3.1 Login
+            user: root
+            password: Sistemas!23
+        3.2 Clique na aba Importar
+        3.3 Selecione o arquivo localizado em <localPath\Carrefour\Resource\cashflow.sql>
+        3.4 Clique em importar
 
-# Unit Test Coverage
+# Swagger
+    1. Para abrir o Swagger acessse o link "http://localhost:3001/index.html"
+# Integraded Test Postam
+    1. Install Postman
+        https://www.postman.com/downloads/
+
+    2. Importe a Collection <localPath>\test\IntegratedTest\Cashflow 1.0.postman_collection.json
+
+    Nota
+        Foi criado um serviço de autênticação (User) Mock apenas para gerar um token.
+    
+        1. No postman execute o serviço /api/User/Authenticate que este carregará em uma variavel de ambiente o token para uso nos demais serviços.
+
+# Unit Test
     - Run Unit Test
         dotnet test --collect:"XPlat Code Coverage"
 
-        O "XPlat Code Coverage" argumento é um nome amigável que corresponde aos coletores de dados do Coverlet. Esse nome é necessário, mas não diferencia maiúsculas de minúsculas.
-
-    - Report Generator
-        - install
-            dotnet tool install -g dotnet-reportgenerator-globaltool
-        
+        Navegue até a pasta \test e use o comando abaixo
         - Generate command
             reportgenerator -reports:"TestResults\{guid}\coverage.cobertura.xml" -targetdir:"TestResultsCoverageReport" -reporttypes:Html
+        
+        Nota
+            Para visualizar o relatório de cobertura de código, troque no caminho acima a tag {guid} pelo nome do arquivo gerado em test\TestResultss
 
         - View
             Chrome - <solutionPath>test/TestResultsCoverageReport/index.html
-
-visit https://docs.microsoft.com/pt-br/dotnet/core/testing/unit-testing-code-coverage?tabs=linux
