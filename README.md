@@ -21,7 +21,8 @@
 
 # Swagger
     1. Para abrir o Swagger acessse o link "http://localhost:3001/index.html"
-# Integraded Test Postam
+# Integraded Test 
+## Postam
     1. Install Postman
         https://www.postman.com/downloads/
 
@@ -32,6 +33,14 @@
     
         1. No postman execute o serviço /api/User/Authenticate que este carregará em uma variavel de ambiente o token para uso nos demais serviços.
 
+## Automation with Cypress
+
+    1. Navegue até a pasta
+        test\IntegratedTest\automation-cypress
+    
+    2. Execute o comando npm install
+
+    3. Execute o comando npx cypress run
 # Unit Test
     - Run Unit Test
         dotnet test --collect:"XPlat Code Coverage"
@@ -45,3 +54,4 @@
 
         - View
             Chrome - <solutionPath>test/TestResultsCoverageReport/index.html
+
