@@ -1,0 +1,74 @@
+using Moq;
+using Xunit;
+using System;
+using AutoMapper;
+using Moq.AutoMock;
+using AutoFixture.Xunit2;
+using System.Threading.Tasks;
+using cashflow.domain.DTO;
+using cashflow.domain.common;
+using cashflow.domain.Entity;
+using cashflow.domain.Interface.Repository;
+using cashflow.service;
+using System.Collections.Generic;
+using cashflow.domain.Interface.Service;
+
+namespace Cashflow.Test.UnitTest.Repository
+{
+    public class FlowServiceTestGetAll : BaseTest
+    {
+        private IFlowService _flowService;
+        private readonly AutoMocker _autoMocker;
+        private Mock<IGenericRepository<Flow>> _genericRepository;
+        private Mock<IMapper> _mapperMock;
+        private static readonly IMapper _mapper = new MapperConfiguration(x =>
+        {
+            x.AddProfile(new MapperProfile());
+        }).CreateMapper();
+
+        public FlowServiceTestGetAll()
+        {
+            _autoMocker = new AutoMocker();
+            _genericRepository = _autoMocker.GetMock<IGenericRepository<Flow>>();
+            _mapperMock = _autoMocker.GetMock<IMapper>();
+            _flowService = _autoMocker.CreateInstance<FlowService>();
+        }
+
+        [Theory]
+        [AutoDomainDataAttribute]
+        public async Task GetByIdAsyncTest_Success(
+            [Frozen] List<Flow> flow
+        )
+        {
+            try
+            {
+                //Given
+                var flowFilterDTO = new FlowFilterDTO();
+
+                var flowDTO = _mapper.Map<List<FlowDTO>>(flow);
+
+                _mapperMock.Setup(x => x.Map<List<FlowDTO>>(It.IsAny<List<Flow>>()))
+                    .Returns(flowDTO);
+
+                _genericRepository.Setup(x => x.GetAllAsync(It.IsAny<FlowFilterDTO>()))
+                    .ReturnsAsync(flow);
+
+                //When
+                var result = await _flowService.GetAllAsync(flowFilterDTO);
+
+                //Then
+                Assert.True(result.IsSuccess);
+                Assert.Equal(200, result.Code);
+                Assert.Equal("Record(s) successfully recovered", result.Info);
+                Assert.Equal(string.Empty, result.Error);
+                Assert.False(result.IsFailure);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetByIdAsyncTest_Success)} -> Message: {e.Message}");
+
+                Assert.Null(e);
+            }
+        }
+    }
+}
