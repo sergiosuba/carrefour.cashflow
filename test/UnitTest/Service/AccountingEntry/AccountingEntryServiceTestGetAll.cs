@@ -36,7 +36,7 @@ namespace Cashflow.Test.UnitTest.Repository
 
         [Theory]
         [AutoDomainDataAttribute]
-        public async Task GetByIdAsyncTest_Success(
+        public async Task GetAllAsyncAsyncTest_Success(
             [Frozen] List<AccountingEntry> accountingEntry
         )
         {
@@ -65,7 +65,7 @@ namespace Cashflow.Test.UnitTest.Repository
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetByIdAsyncTest_Success)} -> Message: {e.Message}");
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetAllAsyncAsyncTest_Success)} -> Message: {e.Message}");
 
                 Assert.Null(e);
             }

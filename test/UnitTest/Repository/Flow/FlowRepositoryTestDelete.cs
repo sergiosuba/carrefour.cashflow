@@ -21,9 +21,11 @@ namespace Cashflow.Test.UnitTest.Repository
             try
             {
                 //Given
-                var accountingEntries = new List<Flow>();
+                var flows = new List<Flow>();
 
-                InMemoryDatabase.Insert(accountingEntries);
+                flows.Add(flow);
+
+                InMemoryDatabase.Insert(flows);
 
                 //When
                 var result = await flowRepository.DeleteAsync(flow);

@@ -8,10 +8,9 @@ using cashflow.infrastructure.common;
 
 namespace cashflow.domain.Interface.Service
 {
-    public interface IFlow : IGenericService<FlowtDTO, Flow>, IDisposable
+    public interface IFlowService : IGenericService<FlowDTO, Flow>, IDisposable
     {
-        Task<Result<FlowtDTO>> AddAsync(FlowtDTO flowtDTO);
-        Task<Result<FlowtDTO>> UpdateAsync(FlowtDTO flowtDTO);
-        Task<Result<IEnumerable<dynamic>>> GetAllViewAsync();
+        Task<Result<FlowDTO>> AddAsync(FlowDTO flowDTO);
+        Task<Result<FlowDTO>> UpdateAsync(FlowDTO flowDTO);
     }
 }

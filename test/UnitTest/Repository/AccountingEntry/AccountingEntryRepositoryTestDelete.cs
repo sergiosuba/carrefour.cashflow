@@ -23,6 +23,8 @@ namespace Cashflow.Test.UnitTest.Repository
                 //Given
                 var accountingEntries = new List<AccountingEntry>();
 
+                accountingEntries.Add(accountingEntry);
+
                 InMemoryDatabase.Insert(accountingEntries);
 
                 //When
