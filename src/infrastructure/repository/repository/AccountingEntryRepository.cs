@@ -21,7 +21,7 @@ namespace cashflow.repository
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<IEnumerable<dynamic>> GetAllViewAsync()
+        public async Task<IEnumerable<dynamic>> GetTotalByDateAsync()
         {
             using (var conn = _connectionFactory.GetConnection())
             {

@@ -12,6 +12,6 @@ namespace cashflow.domain.Interface.Service
     {
         Task<Result<ChartAccountDTO>> AddAsync(ChartAccountDTO chartAccountDTO);
         Task<Result<ChartAccountDTO>> UpdateAsync(ChartAccountDTO chartAccountDTO);
-        Task<Result<IEnumerable<dynamic>>> GetAllViewAsync();
+        Task<Result<IEnumerable<dynamic>>> GetTotalByDateAsync();
     }
 }

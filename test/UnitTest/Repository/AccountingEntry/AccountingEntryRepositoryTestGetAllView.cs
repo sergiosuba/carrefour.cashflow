@@ -14,7 +14,7 @@ namespace Cashflow.Test.UnitTest.Repository
         public AccountingEntryRepository accountingEntryRepository = new AccountingEntryRepository(GetApplicationRespository());
 
         [Fact(Skip = "Error with Concat sqlite inmemory")]
-        public async Task GetAllViewAsync_Success()
+        public async Task GetTotalByDateAsync_Success()
         {
             try
             {
@@ -29,14 +29,14 @@ namespace Cashflow.Test.UnitTest.Repository
 
 
                 //When
-                var result = await accountingEntryRepository.GetAllViewAsync();
+                var result = await accountingEntryRepository.GetTotalByDateAsync();
 
                 //Then
                 Assert.True(true);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetAllViewAsync_Success)} -> Message: {e.Message}");
+                Console.WriteLine($"{DateTime.Now} - Exception -> {GetType()}/{nameof(GetTotalByDateAsync_Success)} -> Message: {e.Message}");
 
                 Assert.Null(e);
             }

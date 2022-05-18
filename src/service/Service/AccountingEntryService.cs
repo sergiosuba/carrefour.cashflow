@@ -79,17 +79,17 @@ namespace cashflow.service
             }
         }
 
-        public async Task<Result<IEnumerable<dynamic>>> GetAllViewAsync()
+        public async Task<Result<IEnumerable<dynamic>>> GetTotalByDateAsync()
         {
             try
             {
-                _logger.LogInformation($"Executed -> {nameof(GetAllAsync)}");
+                _logger.LogInformation($"Executed -> {nameof(GetTotalByDateAsync)}");
 
-                var result = await _accountingEntryRepository.GetAllViewAsync();
+                var result = await _accountingEntryRepository.GetTotalByDateAsync();
 
                 if (Enumerable.Count(result) > 0)
                 {
-                    _logger.LogInformation($"result -> {nameof(GetAllAsync)}");
+                    _logger.LogInformation($"result -> {nameof(GetTotalByDateAsync)}");
 
                     Dispose();
 
@@ -97,7 +97,7 @@ namespace cashflow.service
                 }
                 else
                 {
-                    _logger.LogInformation($"result -> {nameof(GetAllAsync)}");
+                    _logger.LogInformation($"result -> {nameof(GetTotalByDateAsync)}");
 
                     Dispose();
 

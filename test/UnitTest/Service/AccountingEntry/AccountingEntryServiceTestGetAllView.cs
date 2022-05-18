@@ -50,11 +50,11 @@ namespace Cashflow.Test.UnitTest.Repository
                 _mapperMock.Setup(x => x.Map<List<AccountingEntryDTO>>(It.IsAny<List<AccountingEntry>>()))
                     .Returns(accountingEntryDTO);
 
-                _accountingEntryRepository.Setup(x => x.GetAllViewAsync())
+                _accountingEntryRepository.Setup(x => x.GetTotalByDateAsync())
                     .ReturnsAsync(accountingEntry);
 
                 //When
-                var result = await _accountingEntryService.GetAllViewAsync();
+                var result = await _accountingEntryService.GetTotalByDateAsync();
 
                 //Then
                 Assert.True(result.IsSuccess);
