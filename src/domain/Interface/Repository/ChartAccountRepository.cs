@@ -5,7 +5,7 @@ using cashflow.domain.Entity;
 
 namespace cashflow.domain.Interface.Repository
 {
-    public interface IChartAccountRepository : IGenericRepository<Flow>
+    public interface IChartAccountRepository : IGenericRepository<ChartAccount>
     {
 
     }
