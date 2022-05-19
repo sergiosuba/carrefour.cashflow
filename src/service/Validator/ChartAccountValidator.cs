@@ -14,17 +14,17 @@ namespace cashflow.domain.Validators
 
             RuleFor(x => x.Name)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage("The Description value should be beetween 3 and 400 characters.")
-                .NotEmpty().WithMessage("The Description value should be beetween 3 and 400 characters.")
+                .NotNull().WithMessage("The Description value should be between 3 and 400 characters.")
+                .NotEmpty().WithMessage("The Description value should be between 3 and 400 characters.")
                 .Must(x => x.Length >= 3 && x.Length <= 400)
-                .WithMessage("The Description value should be beetween 3 and 400 characters.");
+                .WithMessage("The Description value should be between 3 and 400 characters.");
 
             RuleFor(x => x.Description)
                 .Cascade(CascadeMode.Stop)
-                .NotNull().WithMessage("The Description value should be beetween 3 and 400 characters.")
-                .NotEmpty().WithMessage("The Description value should be beetween 3 and 400 characters.")
+                .NotNull().WithMessage("The Description value should be between 3 and 400 characters.")
+                .NotEmpty().WithMessage("The Description value should be between 3 and 400 characters.")
                 .Must(x => x.Length >= 3 && x.Length <= 400)
-                .WithMessage("The Description value should be beetween 3 and 400 characters.");
+                .WithMessage("The Description value should be between 3 and 400 characters.");
 
             RuleFor(x => x.CreationDate)
                 .Must(d => DateTime.TryParse(d.ToString(), out DateTime dateTime))

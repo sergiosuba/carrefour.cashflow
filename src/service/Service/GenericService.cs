@@ -186,7 +186,7 @@ namespace cashflow.service
                 _logger.LogInformation($"Executed -> {nameof(DeleteAsync)}");
 
                 if (!Guid.TryParse(id, out Guid guid))
-                    throw new Exception("Record not found.");
+                    throw new Exception("The Id value must contain a valid guid.");
 
                 var entity = await _genericRepository.GetByIdAsync(id);
 

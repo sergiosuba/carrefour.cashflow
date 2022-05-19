@@ -11,6 +11,9 @@ using cashflow.domain.Entity;
 using cashflow.domain.Interface.Repository;
 using cashflow.service;
 using cashflow.domain.Interface.Service;
+using cashflow.infrastructure.common;
+using FluentValidation;
+using cashflow.domain.Validators;
 
 namespace Cashflow.Test.UnitTest.Repository
 {
